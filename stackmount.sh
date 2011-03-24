@@ -184,8 +184,7 @@ function ShowVersion {
     # Handle the git format string. Prefer this to the other options,
     # and skip them if a valid export id is found.
     perl -ne 'print "$1\n" and exit 2
-	if /^##\s*(Export ID:.*[[:xdigit:]]+.*)/' "$0" \
-    || exit 2
+	if /^##\s*(Export ID:.*[[:xdigit:]]+.*)/' "$0" || exit 2
 
     # Handle the git id string.
     perl -ne 'print "$1\n" and exit
@@ -193,6 +192,10 @@ function ShowVersion {
     # Handle the RCS revision string.
     perl -ne 'print "$1\n" and exit
         if /^##\s*\$(Revision: \d+\.?\d*)/' "$0"
+
+    egrep -q '^## *((\$(Revision|Id))|Export ID): ' "$0" ||
+	echo 'No version information found.'
+
     exit 2
 }
 
