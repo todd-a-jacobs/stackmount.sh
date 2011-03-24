@@ -1,0 +1,65 @@
+= StackMount
+
+== Name
+    stackmount.sh
+
+== Version
+    $Revision: 1.8 $
+
+== Purpose
+    Stack encfs on top of sshfs, in order to mount a remote encrypted
+    directory. This enables remote storage of sensitive data on hosts
+    which may not be fully secure, e.g. on a virtual private server.
+
+== Caveats
+    Hardlinks do not work. This is a limitation of sshfs.
+
+== Usage
+    stackmount.sh [-h|-u|-v|-d]
+
+== Options
+    -h = show help
+    -u = usage
+    -v = show version
+    -d = dismount version
+
+== Environment Variables
+    CONFIG
+        optional configuration file
+    REMOTE_HOST
+        target hostname for SSH connections
+    HOST_MOUNTPOINT
+        directory where REMOTE_HOST will be mounted
+    REMOTE_ROOT
+        remote directory to mount onto HOST_MOUNTPOINT; this will
+        usually be the path to the user's home directory
+    DIRNAME
+        name (not path) of decrypted directory to mount locally; a
+        dot is prepended to identify the encrypted backing directory
+        on the remote host.
+    DECRYPTED_MOUNTPOINT
+        parent directory for DIRNAME, where decrypted data will be
+        mounted
+
+== Errorlevels
+    0 = Success
+    1 = Failure
+    2 = Other
+
+== Copyright
+    Copyright (c) 2011 by Todd A. Jacobs <bash_junkie@codegnome.org>
+    All Rights Reserved
+
+== License
+    Released under the GNU General Public License (GPL)
+    http://www.gnu.org/copyleft/gpl.html
+
+    This program is free software; you can redistribute it and/or
+    modify it under the terms of the GNU General Public License as
+    published by the Free Software Foundation; either version 3 of the
+    License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+    General Public License for more details.
