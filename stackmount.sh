@@ -4,7 +4,7 @@
 ##     stackmount.sh
 ##
 ## Version:
-##     $Format:Git ID: (%h) %ci$
+##     $Format:Export ID: (%h) %ci$
 ##
 ## Purpose:
 ##     Stack encfs on top of sshfs, in order to mount a remote encrypted
@@ -179,9 +179,19 @@ function ShowUsage {
     exit 2
 }
 
-# Show this program's revision number.
+# Show this program's revision numbers.
 function ShowVersion {
-    perl -ne 'print "$1\n" and exit 
+    # Handle the git format string. Prefer this to the other options,
+    # and skip them if a valid export id is found.
+    perl -ne 'print "$1\n" and exit 2
+	if /^##\s*\$(Export ID:.*[[:xdigit:]]+.*) \$/' "$0" \
+    || exit 2
+
+    # Handle the git id string.
+    perl -ne 'print "$1\n" and exit
+        if /^##\s*\$(Id: [[:xdigit:]]+) \$/' "$0"
+    # Handle the RCS revision string.
+    perl -ne 'print "$1\n" and exit
         if /^##\s*\$(Revision: \d+\.?\d*)/' "$0"
     exit 2
 }

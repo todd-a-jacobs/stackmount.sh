@@ -1,1 +1,2 @@
-*.sh export-subst
+*.sh            export-subst
+README.asciidoc export-subst

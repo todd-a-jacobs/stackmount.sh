@@ -4,7 +4,7 @@
     stackmount.sh
 
 == Version
-    $Format:Git ID: (%h) %ci$
+    $Format:Export ID: (%h) %ci$
 
 == Purpose
     Stack encfs on top of sshfs, in order to mount a remote encrypted
