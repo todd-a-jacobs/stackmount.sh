@@ -18,10 +18,10 @@
 ##     stackmount.sh [-h|-u|-v|-d]
 ##
 ## Options:
-##     -h = show help
+##     -h = help
 ##     -u = usage
-##     -v = show version
-##     -d = dismount version
+##     -v = version
+##     -d = dismount
 ##
 ## Environment Variables:
 ##     CONFIG
