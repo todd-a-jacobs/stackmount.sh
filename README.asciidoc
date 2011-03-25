@@ -1,4 +1,4 @@
-= StackMount
+= stackmount
 
 == Name
     stackmount.sh
@@ -45,6 +45,7 @@
     0 = Success
     1 = Failure
     2 = Other
+    3 = Debug
 
 == Copyright
     Copyright (c) 2011 by Todd A. Jacobs <bash_junkie@codegnome.org>
