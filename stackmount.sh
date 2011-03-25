@@ -134,11 +134,12 @@ function config_parse {
     # Restore exit-on-error if it was orginally set.
     [[ $EXIT_ON_ERROR -eq 0 ]] && toggle_exit
 
-    [[ $DEBUG == config ]] || return
-    for param in ${VALID_PARAMS[*]}; do
-	echo $param = \"${!param}\"
-    done
-    exit 3
+    if [[ $DEBUG == config ]]; then
+	for param in ${VALID_PARAMS[*]}; do
+	    echo $param = \"${!param}\"
+	done
+	exit 3
+    fi
 }
 
 function sshfs_mount {
