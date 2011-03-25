@@ -45,6 +45,7 @@
 ##     0 = Success
 ##     1 = Failure
 ##     2 = Other
+##     3 = Debug
 ##
 ## Copyright:
 ##     Copyright (c) 2011 by Todd A. Jacobs <bash_junkie@codegnome.org>
@@ -132,6 +133,12 @@ function config_parse {
 
     # Restore exit-on-error if it was orginally set.
     [[ $EXIT_ON_ERROR -eq 0 ]] && toggle_exit
+
+    [[ $DEBUG == config ]] || return
+    for param in ${VALID_PARAMS[*]}; do
+	echo $param = \"${!param}\"
+    done
+    exit 3
 }
 
 function sshfs_mount {
