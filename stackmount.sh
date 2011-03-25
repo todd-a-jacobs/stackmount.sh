@@ -73,19 +73,27 @@ set -o pipefail
 
 : "${CONFIG:=$HOME/.stackmountrc}"
 
-# Use these defaults unless overriden. Note: the config file takes
-# precendence over environment variables passed on the command line,
-# because config_parse() isn't called until after these values are
-# initialized.
-: "${REMOTE_HOST:=localhost}"
-: "${HOST_MOUNTPOINT:=$HOME/mnt/$REMOTE_HOST}"
-: "${REMOTE_ROOT:=$HOME}"
-: "${DIRNAME:=c1e05ee6-e6f2-47af-b4fe-123d8f48666c}"
-: "${DECRYPTED_MOUNTPOINT:=$HOME/mnt}"
-
 ######################################################################
 # Functions
 ######################################################################
+# Use these defaults unless overriden. Note: the config file takes
+# precendence over environment variables passed on the command line,
+# because these values are only used if unset.
+function set_env_vars {
+    : "${REMOTE_HOST:=localhost}"
+    : "${HOST_MOUNTPOINT:=$HOME/mnt/$REMOTE_HOST}"
+    : "${REMOTE_ROOT:=$HOME}"
+    : "${DIRNAME:=c1e05ee6-e6f2-47af-b4fe-123d8f48666c}"
+    : "${DECRYPTED_MOUNTPOINT:=$HOME/mnt}"
+
+    if [[ $DEBUG == vars ]]; then
+	for param in ${VALID_PARAMS[*]}; do
+	    echo $param = \"${!param}\"
+	done
+	exit 3
+    fi
+}
+
 # Toggle the current status of the shell's pipefail option.
 function toggle_pipefail {
     # Test returns true if option is set.
@@ -237,6 +245,7 @@ options_parse () {
 options_parse "$@"
 shift $SHIFT
 config_parse
+set_env_vars
 
 ENCRYPTED="${HOST_MOUNTPOINT}/.${DIRNAME}"
 DECRYPTED="${DECRYPTED_MOUNTPOINT}/${DIRNAME}"
